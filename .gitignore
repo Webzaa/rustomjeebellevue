@@ -1,0 +1,16 @@
+node_modules
+dist
+.DS_Store
+
+# Archive backups
+*.zip
+*.tar.gz
+*.rar
+
+# Backup and export folders
+bellevuenew/
+bellevuenew1/
+villa-alturav*/
+
+# Credentials and secrets
+*config.php
