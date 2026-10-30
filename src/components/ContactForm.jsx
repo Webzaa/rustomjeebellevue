@@ -4,6 +4,7 @@ import { gsap, reduceMotion } from '../lib/scroll.js';
 import { asset } from '../lib/assets.js';
 import { getMarketingData, detectDevice } from '../lib/marketing.js';
 import { cleanPhoneNumber, validatePhoneNumber } from '../utils/phoneValidation.js';
+import { pushGtmEvent } from '../utils/gtm.js';
 
 const captureMarketingParams = getMarketingData;
 
@@ -281,6 +282,11 @@ export default function ContactForm() {
         sessionStorage.removeItem('form_error_msg');
       }
 
+      pushGtmEvent('lead_form_submitted', {
+        form_name: 'Contact Form',
+        project: 'Rustomjee Belle Vue - Villa Altura',
+      });
+
       setMsgType('success');
       setMsg('Thank you for your interest! Our team will contact you shortly to schedule your private villa preview.');
       f.reset();
@@ -293,6 +299,12 @@ export default function ContactForm() {
         sessionStorage.setItem('form_submission_status', 'failed');
         sessionStorage.setItem('form_error_msg', error?.message || 'Unable to submit your enquiry.');
       }
+
+      pushGtmEvent('lead_form_error', {
+        form_name: 'Contact Form',
+        error_message: error?.message || 'Unable to submit your enquiry.',
+      });
+
       setMsgType('error');
       setMsg(error?.message || 'Could not submit form. Please check your connection and try again.');
       setErrors((prev) => ({

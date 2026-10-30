@@ -1,0 +1,16 @@
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
+
+  # Redirect static HTML URLs to hash routes
+  RewriteRule ^(thankyou|thank-you)(\.html)?$ /#thank-you [R=301,L,NE]
+  RewriteRule ^(privacy|privacy-policy)(\.html)?$ /#privacy [R=301,L,NE]
+  RewriteRule ^(terms|terms-conditions)(\.html)?$ /#terms [R=301,L,NE]
+  RewriteRule ^(oops)(\.html)?$ /#oops [R=301,L,NE]
+
+  # SPA fallback to index.html
+  RewriteRule ^index\.html$ - [L]
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteRule . /index.html [L]
+</IfModule>

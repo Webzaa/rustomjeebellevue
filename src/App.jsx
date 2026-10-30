@@ -14,6 +14,7 @@ import BookingDialog from './components/BookingDialog.jsx';
 import PrivacyPolicy from './components/PrivacyPolicy.jsx';
 import TermsConditions from './components/TermsConditions.jsx';
 import ThankYou from './components/ThankYou.jsx';
+import { trackGtmPageView } from './utils/gtm.js';
 
 const getRoute = () => {
   if (typeof window === 'undefined') return 'home';
@@ -99,6 +100,11 @@ export default function App() {
       window.removeEventListener('popstate', onRoute);
     };
   }, []);
+
+  // Track Google Tag Manager pageviews on every route change (home, thankyou, privacy, terms, oops)
+  useEffect(() => {
+    trackGtmPageView(route);
+  }, [route]);
 
   // Show mobile enquire button only after scrolling past the home/hero view,
   // and hide it when reaching the enquiry/contact section and footer at the end.

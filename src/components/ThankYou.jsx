@@ -1,9 +1,18 @@
 import { useEffect, useState } from 'react';
 import Header from './Header.jsx';
+import { trackGtmPageView } from '../utils/gtm.js';
 
 export default function ThankYou({ onBook, isOops: isOopsProp = false }) {
   const [status, setStatus] = useState('loading');
   const [errorMsg, setErrorMsg] = useState('');
+
+  useEffect(() => {
+    if (status === 'success') {
+      trackGtmPageView('thankyou');
+    } else if (status === 'oops') {
+      trackGtmPageView('oops');
+    }
+  }, [status]);
 
   useEffect(() => {
     window.scrollTo(0, 0);

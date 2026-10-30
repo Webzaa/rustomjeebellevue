@@ -1,9 +1,11 @@
 import { useEffect } from 'react';
 import Header from './Header.jsx';
+import { trackGtmPageView } from '../utils/gtm.js';
 
 export default function TermsConditions({ onBook }) {
   useEffect(() => {
     window.scrollTo(0, 0);
+    trackGtmPageView('terms');
   }, []);
 
   return (
